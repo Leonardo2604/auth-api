@@ -48,7 +48,7 @@ export class ExpressHttpServer implements HttpServer {
   async start(): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        this.server = this.app.listen(3000, resolve);
+        this.server = this.app.listen(this.port, resolve);
       } catch (error) {
         reject(error);
       }

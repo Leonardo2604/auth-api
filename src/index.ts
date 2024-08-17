@@ -1,16 +1,16 @@
 import { App } from './app';
 import { HTTP_SERVER_PORT } from './config/env';
-import { ExpressHttpServer } from './infra/http-servers/express/http-server';
+import { FastifyHttpServer } from './infra/http-servers/fastify/http-server';
 import * as Router from './routers';
 
-const expressHttpServer = new ExpressHttpServer({
+const httpServer = new FastifyHttpServer({
   port: HTTP_SERVER_PORT
 });
 
-Router.register(expressHttpServer);
+Router.register(httpServer);
 
 const app = new App({
-  httpServer: expressHttpServer
+  httpServer
 });
 
 (async () => {
