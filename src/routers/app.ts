@@ -4,5 +4,5 @@ import { InfoController } from '@/controllers/app/info.controller';
 export const register = (router: Router) => {
   const infoController = new InfoController();
 
-  router.get('/', infoController.execute);
+  router.get('info', infoController.execute);
 };

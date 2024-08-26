@@ -14,7 +14,7 @@ export class App {
   async start() {
     try {
       await this.httpServer.start();
-      console.log(`app is running on ${this.httpServer.getPort()}`);
+      console.log(`app is running on ${this.httpServer.port}`);
     } catch (error) {
       console.log(error);
     }

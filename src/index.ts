@@ -8,9 +8,7 @@ const httpServer = new FastifyHttpServer({
   router: Router.get()
 });
 
-const app = new App({
-  httpServer
-});
+const app = new App({ httpServer });
 
 (async () => {
   await app.start();

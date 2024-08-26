@@ -6,6 +6,11 @@ type RouteOptions = {
   preHandlers?: Handler[];
 };
 
+type GroupOptions = {
+  prefix?: string;
+  preHandlers?: Handler[];
+};
+
 export class Router {
   private readonly _routes: Route[];
 
@@ -49,5 +54,33 @@ export class Router {
 
   delete(uri: string, handler: Handler, options?: RouteOptions) {
     this.route('DELETE', uri, handler, options);
+  }
+
+  group(cb: (router: Router) => void, options?: GroupOptions) {
+    const router = new Router();
+
+    cb(router);
+
+    router.routes.forEach((route) => {
+      let uri = route.uri;
+      let preHandlers = route.preHandlers;
+
+      if (options?.prefix) {
+        const fixed = `${options.prefix}/${uri}`
+          .split('/')
+          .filter((path) => path !== '')
+          .join('/');
+
+        uri = '/' + fixed;
+      }
+
+      if (options?.preHandlers) {
+        preHandlers = [...options.preHandlers, ...preHandlers];
+      }
+
+      this.route(route.method, uri, route.handler, {
+        preHandlers
+      });
+    });
   }
 }
