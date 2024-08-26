@@ -1,17 +1,15 @@
-import { HttpMethod } from '@/contracts/http-server/method';
-import { Route } from '@/contracts/http-server/route';
-import { HttpServer } from '@/contracts/http-server/server';
+import { Route, Server } from '@/contracts/http';
 import express, { Express } from 'express';
 
-import { Server } from 'http';
+import { Server as NodeServer } from 'node:http';
 import { expressHttpHandlerAdapter } from './http-handler-adapter';
 
 type Config = {
   port: number;
 };
 
-export class ExpressHttpServer implements HttpServer {
-  private server: Server | null;
+export class ExpressHttpServer implements Server {
+  private server: NodeServer | null;
   private readonly app: Express;
   private readonly port: number;
 
@@ -23,19 +21,19 @@ export class ExpressHttpServer implements HttpServer {
 
   addRoute(route: Route): void {
     switch (route.method) {
-      case HttpMethod.GET:
+      case 'GET':
         this.app.get(route.uri, expressHttpHandlerAdapter(route.handler));
         break;
-      case HttpMethod.POST:
+      case 'POST':
         this.app.post(route.uri, expressHttpHandlerAdapter(route.handler));
         break;
-      case HttpMethod.PUT:
+      case 'PUT':
         this.app.put(route.uri, expressHttpHandlerAdapter(route.handler));
         break;
-      case HttpMethod.PATCH:
+      case 'PATCH':
         this.app.patch(route.uri, expressHttpHandlerAdapter(route.handler));
         break;
-      case HttpMethod.DELETE:
+      case 'DELETE':
         this.app.delete(route.uri, expressHttpHandlerAdapter(route.handler));
         break;
     }

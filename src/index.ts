@@ -1,13 +1,12 @@
 import { App } from './app';
 import { HTTP_SERVER_PORT } from './config/env';
-import { FastifyHttpServer } from './infra/http-servers/fastify/http-server';
+import { FastifyHttpServer } from './infra/http/fastify/server';
 import * as Router from './routers';
 
 const httpServer = new FastifyHttpServer({
-  port: HTTP_SERVER_PORT
+  port: HTTP_SERVER_PORT,
+  router: Router.get()
 });
-
-Router.register(httpServer);
 
 const app = new App({
   httpServer

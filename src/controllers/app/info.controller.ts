@@ -1,7 +1,7 @@
-import { HttpHandler } from '@/contracts/http-server/handler';
+import { Handler } from '@/contracts/http';
 
 export class InfoController {
-  execute: HttpHandler = async (request, response) => {
+  execute: Handler = async (request, response) => {
     response.json({
       name: 'auth-api',
       version: '1.0.0'

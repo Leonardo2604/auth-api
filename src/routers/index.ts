@@ -1,6 +1,10 @@
-import { HttpServer } from '@/contracts/http-server/server';
+import { Router } from '@/contracts/http';
 import * as AppRouter from './app';
 
-export const register = (server: HttpServer) => {
-  AppRouter.register(server);
+export const get = () => {
+  const router = new Router();
+
+  AppRouter.register(router);
+
+  return router;
 };

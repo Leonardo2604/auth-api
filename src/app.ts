@@ -1,11 +1,11 @@
-import { HttpServer } from './contracts/http-server/server';
+import { Server } from './contracts/http';
 
 type Config = {
-  httpServer: HttpServer;
+  httpServer: Server;
 };
 
 export class App {
-  private readonly httpServer: HttpServer;
+  private readonly httpServer: Server;
 
   constructor({ httpServer }: Config) {
     this.httpServer = httpServer;
